@@ -36,11 +36,13 @@ export class Linter {
             return;
         }
 
+        const fileName = path.basename(document.fileName);
         const fileExtension = path.extname(document.fileName);
         const supportedExtensions = ['.c', '.h', '.cpp', '.hpp'];
+        const isMakefile = fileName === 'Makefile' || fileName.startsWith('Makefile.');
         
-        if (!supportedExtensions.includes(fileExtension)) {
-            vscode.window.showWarningMessage('Linter is only supported for C/C++ files');
+        if (!supportedExtensions.includes(fileExtension) && !isMakefile) {
+            vscode.window.showWarningMessage('Linter is only supported for C/C++ files and Makefiles');
             return;
         }
 

@@ -36,7 +36,7 @@ Customize the extension to your needs:
 ## 📦 Installation
 
 ### Prerequisites
-- Visual Studio Code v1.60.0 or higher
+- Visual Studio Code v1.109.0 or higher
 - Node.js and npm
 - epiclang installed and available in your PATH
 

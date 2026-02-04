@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
 import { generateHeader } from './headerGenerator';
 import { Linter } from './linter';
 import { CodingStyleProvider } from './codingStyleView';
@@ -42,7 +43,10 @@ export function activate(context: vscode.ExtensionContext) {
     );
 
     const onSaveHandler = vscode.workspace.onDidSaveTextDocument(async (document: vscode.TextDocument) => {
-        if (document.languageId === 'c' || document.languageId === 'cpp') {
+        const fileName = path.basename(document.fileName);
+        const isMakefile = fileName === 'Makefile' || fileName.startsWith('Makefile.');
+        
+        if (document.languageId === 'c' || document.languageId === 'cpp' || isMakefile) {
             await linter.runLinter(document);
         }
     });
