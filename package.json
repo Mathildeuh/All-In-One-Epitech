@@ -1,119 +1,140 @@
-{ 
-  "name": "epitech-all-in-one", 
-  "displayName": "Epitech All-In-One", 
-  "description": "A comprehensive VSCode extension for Epitech students with header generation, epiclang linter, and coding style guide.", 
-  "version": "1.1.0", 
-  "publisher": "Mathildeuh", 
-  "engines": { 
-    "vscode": "^1.109.0" 
-  }, 
-  "categories": [
-    "Linters",
-    "Programming Languages",
-    "Other"
-  ],
-  "icon": "icon.png",
-  "activationEvents": [
-    "onLanguage:c",
-    "onLanguage:cpp"
-  ], 
-  "main": "./out/extension.js",
-  "contributes": { 
-    "commands": [ 
-      { 
-        "command": "epitech.generateHeader", 
-        "title": "Epitech: Generate Header",
-        "category": "Epitech"
-      }, 
-      { 
-        "command": "epitech.runLinter", 
-        "title": "Epitech: Check Coding Style (Current File)",
-        "category": "Epitech"
-      },
-      {
-        "command": "epitech.runLinterWorkspace",
-        "title": "Epitech: Check Coding Style (Workspace)",
-        "category": "Epitech"
-      },
-      {
-        "command": "epitech.showCodingStyle",
-        "title": "Epitech: Show Coding Style Guide",
-        "category": "Epitech"
-      }
-    ], 
-    "keybindings": [ 
-      { 
-        "command": "epitech.generateHeader", 
-        "key": "ctrl+shift+h", 
-        "mac": "cmd+shift+h",
-        "when": "editorTextFocus" 
-      }, 
-      { 
-        "command": "epitech.runLinter", 
-        "key": "ctrl+shift+l", 
-        "mac": "cmd+shift+l",
-        "when": "editorTextFocus" 
-      },
-      {
-        "command": "epitech.runLinterWorkspace",
-        "key": "ctrl+shift+alt+l",
-        "mac": "cmd+shift+alt+l"
-      },
-      {
-        "command": "epitech.showCodingStyle",
-        "key": "ctrl+shift+s",
-        "mac": "cmd+shift+s"
-      }
+{
+    "name": "epitech-all-in-one",
+    "displayName": "Epitech All-In-One",
+    "description": "A comprehensive VSCode extension for Epitech students with header generation, epiclang linter, and coding style guide.",
+    "version": "1.2.0",
+    "publisher": "Mathildeuh",
+    "engines": {
+        "vscode": "^1.109.0"
+    },
+    "categories": [
+        "Linters",
+        "Programming Languages",
+        "Other"
     ],
-    "configuration": {
-      "title": "Epitech",
-      "properties": {
-        "epitech.author": {
-          "type": "string",
-          "default": "",
-          "description": "Author name for header generation"
-        },
-        "epitech.email": {
-          "type": "string",
-          "default": "",
-          "description": "Email address for header generation"
-        },
-        "epitech.epiclangPath": {
-          "type": "string",
-          "default": "epiclang",
-          "description": "Path to the epiclang executable"
-        }
-      }
-    }
-  }, 
-  "scripts": { 
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
-  }, 
-  "devDependencies": { 
-    "@types/node": "^25.2.0",
-    "@types/vscode": "^1.109.0",
-    "@typescript-eslint/eslint-plugin": "^8.54.0",
-    "@typescript-eslint/parser": "^8.54.0",
-    "eslint": "^8.0.0",
-    "typescript": "^5.9.3"
-  },
-  "dependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Mathildeuh/All-In-One-Epitech"
-  },
-  "keywords": [
-    "epitech",
-    "coding-style",
-    "linter",
-    "c",
-    "cpp",
-    "header"
-  ],
-  "license": "MIT"
+    "icon": "icon.png",
+    "activationEvents": [
+        "onLanguage:c",
+        "onLanguage:cpp"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "epitech.generateHeader",
+                "title": "Epitech: Generate Header",
+                "category": "Epitech"
+            },
+            {
+                "command": "epitech.runLinter",
+                "title": "Epitech: Check Coding Style (Current File)",
+                "category": "Epitech"
+            },
+            {
+                "command": "epitech.runLinterWorkspace",
+                "title": "Epitech: Check Coding Style (Workspace)",
+                "category": "Epitech"
+            },
+            {
+                "command": "epitech.showCodingStyle",
+                "title": "Epitech: Show Coding Style Guide",
+                "category": "Epitech"
+            }
+        ],
+        "keybindings": [ 
+          { 
+            "command": "epitech.generateHeader", 
+            "key": "ctrl+shift+h", 
+            "mac": "cmd+shift+h",
+            "when": "editorTextFocus && config.epitech.enableHeaderShortcut" 
+          }, 
+          { 
+            "command": "epitech.runLinter", 
+            "key": "ctrl+shift+l", 
+            "mac": "cmd+shift+l",
+            "when": "editorTextFocus" 
+          },            {
+                "command": "epitech.runLinterWorkspace",
+                "key": "ctrl+shift+alt+l",
+                "mac": "cmd+shift+alt+l"
+            },
+            {
+                "command": "epitech.showCodingStyle",
+                "key": "ctrl+shift+s",
+                "mac": "cmd+shift+s"
+            }
+        ],
+        "configuration": {
+            "title": "Epitech",
+            "properties": {
+                "epitech.author": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Author name for header generation"
+                },
+                "epitech.email": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Email address for header generation"
+                },
+                "epitech.epiclangPath": {
+                    "type": "string",
+                    "default": "epiclang",
+                    "description": "Path to the epiclang executable"
+                },
+                "epitech.autoInclude": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Automatically find and include all project directories containing header files"
+                },
+                "epitech.includePaths": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": [],
+                    "description": "Additional include paths for the linter. Supports ${workspaceFolder} variable."
+                },
+                "epitech.showOutput": {
+                  "type": "boolean",
+                  "default": false,
+                  "description": "Automatically show the output channel when the linter runs."
+                },
+                "epitech.enableHeaderShortcut": {
+                  "type": "boolean",
+                  "default": true,
+                  "description": "Enable the CTRL+SHIFT+H (CMD+SHIFT+H on macOS) shortcut to generate headers."
+                }
+                }        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/node": "^25.2.0",
+        "@types/vscode": "^1.109.0",
+        "@typescript-eslint/eslint-plugin": "^8.54.0",
+        "@typescript-eslint/parser": "^8.54.0",
+        "eslint": "^8.0.0",
+        "typescript": "^5.9.3"
+    },
+    "dependencies": {},
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Mathildeuh/All-In-One-Epitech"
+    },
+    "keywords": [
+        "epitech",
+        "coding-style",
+        "linter",
+        "c",
+        "cpp",
+        "header"
+    ],
+    "license": "MIT"
 }

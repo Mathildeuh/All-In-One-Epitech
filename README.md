@@ -96,9 +96,22 @@ Go to Settings (`Ctrl+,`) and search for "Epitech":
 {
   "epitech.author": "Your Name",
   "epitech.email": "your.email@epitech.eu",
-   "epitech.epiclangPath": "epiclang"
+  "epitech.epiclangPath": "epiclang",
+  "epitech.autoInclude": true,
+  "epitech.includePaths": [],
+  "epitech.showOutput": false,
+  "epitech.enableHeaderShortcut": true
 }
 ```
+
+### Customizing Shortcuts
+While the default shortcut for generating headers is `Ctrl+Shift+H` (or `Cmd+Shift+H` on macOS), you can change it to any key combination you prefer:
+
+1. Open the **Keyboard Shortcuts** editor (`File > Preferences > Keyboard Shortcuts` or `Ctrl+K Ctrl+S`).
+2. Search for `epitech.generateHeader`.
+3. Click the pencil icon next to the command and type your desired key combination.
+
+If you want to disable the default shortcut entirely to avoid conflicts, you can set `epitech.enableHeaderShortcut` to `false` in your settings.
 
 ## 🐳 Docker Support
 

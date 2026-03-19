@@ -55,11 +55,14 @@ export class Linter {
         const workspacePath = workspaceFolder.uri.fsPath;
 
         this.outputChannel.clear();
-        this.outputChannel.show(true);
+        if (config.get<boolean>('showOutput') === true) {
+            this.outputChannel.show(true);
+        }
         this.outputChannel.appendLine(`Running epiclang on ${document.fileName}...`);
 
         try {
-            const command = `${epiclangPath} -Wno-everything -fsyntax-only "${document.fileName}"`;
+            const includeFlags = await this.getIncludeFlags(workspaceFolder);
+            const command = `${epiclangPath} ${includeFlags} -Wno-everything -fsyntax-only "${document.fileName}"`;
             this.outputChannel.appendLine(`Command: ${command}`);
 
             const { stdout, stderr } = await execAsync(command, {
@@ -94,6 +97,41 @@ export class Linter {
             
             vscode.window.showErrorMessage('Failed to run epiclang. Make sure it is installed and in your PATH.');
         }
+    }
+
+    private async getIncludeFlags(workspaceFolder: vscode.WorkspaceFolder): Promise<string> {
+        const config = vscode.workspace.getConfiguration('epitech');
+        const autoInclude = config.get<boolean>('autoInclude') !== false;
+        const manualIncludePaths = config.get<string[]>('includePaths') || [];
+        const includeDirs = new Set<string>();
+
+        // Add workspace root by default
+        includeDirs.add(workspaceFolder.uri.fsPath);
+
+        if (autoInclude) {
+            // Find all header files to identify include directories
+            const headerFiles = await vscode.workspace.findFiles(
+                new vscode.RelativePattern(workspaceFolder, '**/*.{h,hpp,hxx,hpp}'),
+                '**/node_modules/**'
+            );
+
+            for (const file of headerFiles) {
+                includeDirs.add(path.dirname(file.fsPath));
+            }
+        }
+
+        // Add manual include paths
+        for (let p of manualIncludePaths) {
+            p = p.replace(/\${workspaceFolder}/g, workspaceFolder.uri.fsPath);
+            if (!path.isAbsolute(p)) {
+                p = path.join(workspaceFolder.uri.fsPath, p);
+            }
+            includeDirs.add(p);
+        }
+
+        return Array.from(includeDirs)
+            .map(dir => `-I"${dir}"`)
+            .join(' ');
     }
 
     private parseLinterOutput(document: vscode.TextDocument, output: string): void {
@@ -179,11 +217,14 @@ export class Linter {
 
         for (const folder of workspaceFolders) {
             this.outputChannel.clear();
-            this.outputChannel.show(true);
+            if (config.get<boolean>('showOutput') === true) {
+                this.outputChannel.show(true);
+            }
             this.outputChannel.appendLine(`Running epiclang on workspace: ${folder.uri.fsPath}`);
 
             try {
-                const command = `${epiclangPath} -Wno-everything -fsyntax-only *.c *.h *.cpp *.hpp`;
+                const includeFlags = await this.getIncludeFlags(folder);
+                const command = `${epiclangPath} ${includeFlags} -Wno-everything -fsyntax-only *.c *.h *.cpp *.hpp`;
                 this.outputChannel.appendLine(`Command: ${command}`);
 
                 const { stdout, stderr } = await execAsync(command, {

@@ -2,13 +2,27 @@
 
 All notable changes to the Epitech All-In-One extension will be documented in this file.
 
+## [1.2.0] - 2026-03-19
+
+### Added
+- Automatic include path detection for `epiclang`. The linter now finds and includes all project directories containing header files.
+- New configuration `epitech.autoInclude` (default `true`) to toggle automatic header detection.
+- New configuration `epitech.includePaths` for manual addition of include directories (supports `${workspaceFolder}`).
+- New configuration `epitech.showOutput` (default `false`) to control whether the Output channel automatically takes focus when the linter runs.
+- New configuration `epitech.enableHeaderShortcut` (default `true`) to toggle the default header generation shortcut (`CTRL+SHIFT+H`).
+- Documentation for customizing keybindings via VS Code's native Keyboard Shortcuts editor.
+
+### Changed
+- The Output channel no longer takes focus by default when running the linter, preventing interruption of the terminal view.
+
+### Fixed
+- Fatal error when header files were not in the same directory as the source file being linted.
+
 ## [1.1.0] - 2026-02-04
 
 ### Added
-- Inline error decoration for coding style violations (error messages appear at end of line)
 - Automatic linting on file save for C/C++ files
 - Makefile support in the linter (checks Makefile syntax)
-- GitHub repository integration
 
 ### Changed
 - Updated VS Code engine requirement to `^1.109.0`
@@ -22,7 +36,6 @@ All notable changes to the Epitech All-In-One extension will be documented in th
 - Removed debug console logging
 
 ### Removed
-- Makefile generator feature (kept linting support)
 - Optional `lintOnSave` configuration (now always enabled for supported files)
 
 ### Fixed
